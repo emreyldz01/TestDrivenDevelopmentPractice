@@ -6,47 +6,41 @@ import static org.junit.Assert.*;
  * @author Emre YILDIZ
  */
 public class ValidateISBNTest {
+    private static final ValidateISBN validator = new ValidateISBN();
     @Test
     public void checkAValidISBN()
     {
-        ValidateISBN validator = new ValidateISBN();
-        boolean result = validator.checkISBN("0486284735");
-        assertTrue("first",result);
-        result = validator.checkISBN("0486284735");
-        assertTrue("second",result);
-
+        assertTrue("first",validator.checkISBN("0486284735"));
+        assertTrue("second",validator.checkISBN("0486284735"));
     }
     @Test
     public void checkAnInValidISBN()
     {
-        ValidateISBN validator = new ValidateISBN();
-        boolean result = validator.checkISBN("0140449117");
-        assertFalse(result);
+        assertFalse(validator.checkISBN("0140449117"));
     }
     @Test
-    public void ISBNNumberEndingInAnXAreValid()
+    public void tenDigitISBNNumberEndingInAnXAreValid()
     {
-        ValidateISBN validator = new ValidateISBN();
-        boolean result = validator.checkISBN("012000030X");
-        assertTrue(result);
+        assertTrue(validator.checkISBN("012000030X"));
+        assertTrue(validator.checkISBN("1644136201"));
     }
     @Test(expected = NumberFormatException.class)
     public void nineDigitISBNAreAllowed()
     {
-        ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("123456789");
     }
     @Test(expected = NumberFormatException.class)
     public void nonNumericIsNotAllowed()
     {
-        ValidateISBN validator = new ValidateISBN();
         validator.checkISBN("helloWorld");
     }
     @Test
     public void thirteenDigitISBNIsAllowed()
     {
-        ValidateISBN validator = new ValidateISBN();
-        boolean result = validator.checkISBN("9871853260087");
-        assertTrue(result);
+        assertTrue("1", validator.checkISBN("9780063225930"));
+        assertTrue("2",validator.checkISBN("9780310777021"));
+        assertTrue("3",validator.checkISBN("9781644132111"));
+        assertTrue("4",validator.checkISBN("9781644136201"));
     }
+
 }
